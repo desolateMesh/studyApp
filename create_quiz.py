@@ -9,7 +9,7 @@ class CreateQuiz:
         self.master.title("Create Quiz")
 
         # Quiz Details Section
-        tk.Label(self.master, text="Quiz Title:").grid(row=0, column=0, sticky="w")
+        tk.Label(self.master, text="Quiz ID:").grid(row=0, column=0, sticky="w")
         self.quiz_title = tk.Entry(self.master)
         self.quiz_title.grid(row=0, column=1, sticky="ew")
 
@@ -26,20 +26,53 @@ class CreateQuiz:
         self.correct_answer = tk.Entry(self.master)
         self.correct_answer.grid(row=3, column=1, sticky="ew")
 
-        # Placeholder for multiple choice answers
-        # You can add more entries for additional answers
+        tk.Label(self.master, text="A):").grid(row=4, column=0, sticky="w")
+        self.answer_a = tk.Entry(self.master)
+        self.answer_a.grid(row=4, column=1, sticky="ew")
+
+        tk.Label(self.master, text="B):").grid(row=5, column=0, sticky="w")
+        self.answer_b = tk.Entry(self.master)
+        self.answer_b.grid(row=5, column=1, sticky="ew")
+
+        tk.Label(self.master, text="C):").grid(row=6, column=0, sticky="w")
+        self.answer_c = tk.Entry(self.master)
+        self.answer_c.grid(row=6, column=1, sticky="ew")
+
+        tk.Label(self.master, text="D):").grid(row=7, column=0, sticky="w")
+        self.answer_d = tk.Entry(self.master)
+        self.answer_d.grid(row=7, column=1, sticky="ew")
 
         # Save Button
-        tk.Button(self.master, text="Save Quiz", command=self.save_quiz).grid(row=4, column=0, columnspan=2)
+        tk.Button(self.master, text="Save Quiz", command=self.save_quiz).grid(row=8, column=0, columnspan=2)
 
         self.master.grid_columnconfigure(1, weight=1)  # Make the entry fields expand to fill the dialog
 
     def save_quiz(self):
-        title = self.quiz_title.get()
+        user_id = 1  
         category = self.quiz_category.get()
-        question = self.question_text.get()
+        question_text = self.question_text.get()
         correct_answer = self.correct_answer.get()
-        print(title, category, question, correct_answer)  
+        answer_a = self.answer_a.get()
+        answer_b = self.answer_b.get()
+        answer_c = self.answer_c.get()
+        answer_d = self.answer_d.get()
+
+        conn = sqlite3.connect('quiz_application.db')
+        c = conn.cursor()
+
+        c.execute("INSERT INTO quizzes (user_id, category, number_of_questions) VALUES (?, ?, ?)", 
+                (user_id, category, 1))  
+        quiz_id = c.lastrowid  
+        c.execute("""INSERT INTO questions (quiz_id, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)""", 
+                (quiz_id, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d))
+
+        conn.commit()
+        conn.close()
+        messagebox.showinfo("Success", "Quiz and question saved successfully!")
+
+    
+
 
     def open_create_quiz():
         try:
