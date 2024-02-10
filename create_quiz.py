@@ -8,7 +8,7 @@ class CreateQuiz:
         self.master = master
         self.master.title("Create Quiz")
 
-        # Quiz Details Section
+       
         tk.Label(self.master, text="Quiz ID:").grid(row=0, column=0, sticky="w")
         self.quiz_title = tk.Entry(self.master)
         self.quiz_title.grid(row=0, column=1, sticky="ew")
@@ -17,7 +17,7 @@ class CreateQuiz:
         self.quiz_category = tk.Entry(self.master)
         self.quiz_category.grid(row=1, column=1, sticky="ew")
 
-        # Questions Section
+       
         tk.Label(self.master, text="Question:").grid(row=2, column=0, sticky="w")
         self.question_text = tk.Entry(self.master)
         self.question_text.grid(row=2, column=1, sticky="ew")
@@ -42,10 +42,9 @@ class CreateQuiz:
         self.answer_d = tk.Entry(self.master)
         self.answer_d.grid(row=7, column=1, sticky="ew")
 
-        # Save Button
         tk.Button(self.master, text="Save Quiz", command=self.save_quiz).grid(row=8, column=0, columnspan=2)
 
-        self.master.grid_columnconfigure(1, weight=1)  # Make the entry fields expand to fill the dialog
+        self.master.grid_columnconfigure(1, weight=1)  
 
     def save_quiz(self):
         user_id = 1  
@@ -70,9 +69,6 @@ class CreateQuiz:
         conn.commit()
         conn.close()
         messagebox.showinfo("Success", "Quiz and question saved successfully!")
-
-    
-
 
     def open_create_quiz():
         try:

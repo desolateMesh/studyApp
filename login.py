@@ -12,9 +12,8 @@ def login_user(username, password):
     
     if account:
         messagebox.showinfo("Login Success", "You have successfully logged in!")
-        root.destroy()  # Close the login window
-        show_dashboard()  # Open the dashboard
-
+        root.destroy()
+        show_dashboard() 
 
 def create_profile_window():
     window = tk.Toplevel(root)
@@ -41,8 +40,8 @@ def show_dashboard():
     dashboard.mainloop()
 
 def open_create_quiz():
-    # This standalone function correctly opens the Create Quiz window
-    create_quiz_window = tk.Toplevel()  # Create a new top-level window
+    
+    create_quiz_window = tk.Toplevel()  
     create_quiz_app = CreateQuiz(create_quiz_window)
 
 def open_view_results():
@@ -50,7 +49,6 @@ def open_view_results():
 
 
 def save_profile(entries):
-    # Extract data from entries and save to the database
     data = [e.get() for e in entries]
     conn = sqlite3.connect('quiz_application.db')
     c = conn.cursor()
@@ -60,9 +58,8 @@ def save_profile(entries):
     conn.close()
     messagebox.showinfo("Success", "Profile created successfully!")
     for entry in entries:
-        entry.delete(0, tk.END)  # Clear form after submission
+        entry.delete(0, tk.END) 
 
-# Main login window
 root = tk.Tk()
 root.title("Quiz Application Login")
 
