@@ -36,6 +36,7 @@ def setup_database(conn):
     questions_table = """CREATE TABLE IF NOT EXISTS questions (
                           id INTEGER PRIMARY KEY,
                           quiz_id INTEGER NOT NULL,
+                          category TEXT NOT NULL,
                           question_text TEXT NOT NULL,
                           correct_answer TEXT NOT NULL,
                           answer_a TEXT NOT NULL,

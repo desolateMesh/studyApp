@@ -8,7 +8,6 @@ class CreateQuiz:
         self.master = master
         self.master.title("Create Quiz Questions")
 
-       
         tk.Label(self.master, text="Quiz ID:").grid(row=0, column=0, sticky="w")
         self.quiz_title = tk.Entry(self.master)
         self.quiz_title.grid(row=0, column=1, sticky="ew")
@@ -59,16 +58,20 @@ class CreateQuiz:
         conn = sqlite3.connect('quiz_application.db')
         c = conn.cursor()
 
+        # First, insert the quiz info into the quizzes table
         c.execute("INSERT INTO quizzes (user_id, category, number_of_questions) VALUES (?, ?, ?)", 
                 (user_id, category, 1))  
         quiz_id = c.lastrowid  
-        c.execute("""INSERT INTO questions (quiz_id, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)""", 
-                (quiz_id, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d))
+
+        # Next, insert the question info into the questions table, including the category
+        c.execute("""INSERT INTO questions (quiz_id, category, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", 
+                (quiz_id, category, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d))
 
         conn.commit()
         conn.close()
         messagebox.showinfo("Success", "Quiz and question saved successfully!")
+
 
     def open_create_quiz():
         try:

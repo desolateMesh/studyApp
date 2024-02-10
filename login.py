@@ -3,6 +3,8 @@ from tkinter import messagebox
 import sqlite3
 from create_quiz import CreateQuiz
 from viewQuestionsScreen import ViewQuestionScreen
+from quiz_screen import QuizScreen
+from dashboard import show_dashboard
 
 def login_user(username, password):
     conn = sqlite3.connect('quiz_application.db')
@@ -30,28 +32,20 @@ def create_profile_window():
     
     tk.Button(window, text="Create", command=lambda: save_profile(entries)).grid(row=len(labels), column=0, columnspan=2)
 
-def show_dashboard():
-    dashboard = tk.Tk()
-    dashboard.title("Dashboard")
-    
-    tk.Label(dashboard, text="Welcome to the Dashboard!", font=('Helvetica', 16)).pack(pady=20)
-    
-    tk.Button(dashboard, text="Create Quiz", command=open_create_quiz).pack(side=tk.TOP, anchor=tk.W, padx=5, pady=1)
-    tk.Button(dashboard, text="View Quiz Results", command=open_view_results).pack(side=tk.TOP, anchor=tk.W, padx=5, pady=1)
-    tk.Button(dashboard, text="View Questions", command=lambda: open_view_questions(dashboard)).pack(side=tk.TOP, anchor=tk.W, padx=5, pady=1)
-    dashboard.mainloop()
-
-def open_create_quiz():
-    
-    create_quiz_window = tk.Toplevel()  
-    create_quiz_app = CreateQuiz(create_quiz_window)
-
-def open_view_results():
-    messagebox.showinfo("View Results", "Open View Results window here.")
+def open_show_dashboard():
+    create_dashboard_window = tk.Toplevel()
+    create_dashboard = show_dashboard(create_dashboard_window)
 
 def open_view_questions(master):
     view_question_window = tk.Toplevel(master)  
     view_screen = ViewQuestionScreen(view_question_window)
+
+def open_quiz_screen(master):
+    quiz_window = tk.Toplevel(master)
+    quiz_screen = QuizScreen(quiz_window)
+
+def open_view_results():
+    messagebox.showinfo("View Results", "Open View Results window here.")
 
 def save_profile(entries):
     data = [e.get() for e in entries]
