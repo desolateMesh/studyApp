@@ -6,7 +6,7 @@ import sqlite3
 class CreateQuiz:
     def __init__(self, master):
         self.master = master
-        self.master.title("Create Quiz")
+        self.master.title("Create Quiz Questions")
 
        
         tk.Label(self.master, text="Quiz ID:").grid(row=0, column=0, sticky="w")

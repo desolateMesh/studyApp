@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 import sqlite3
 from create_quiz import CreateQuiz
+from viewQuestionsScreen import ViewQuestionScreen
 
 def login_user(username, password):
     conn = sqlite3.connect('quiz_application.db')
@@ -37,6 +38,7 @@ def show_dashboard():
     
     tk.Button(dashboard, text="Create Quiz", command=open_create_quiz).pack(side=tk.TOP, anchor=tk.W, padx=5, pady=1)
     tk.Button(dashboard, text="View Quiz Results", command=open_view_results).pack(side=tk.TOP, anchor=tk.W, padx=5, pady=1)
+    tk.Button(dashboard, text="View Questions", command=lambda: open_view_questions(dashboard)).pack(side=tk.TOP, anchor=tk.W, padx=5, pady=1)
     dashboard.mainloop()
 
 def open_create_quiz():
@@ -47,6 +49,9 @@ def open_create_quiz():
 def open_view_results():
     messagebox.showinfo("View Results", "Open View Results window here.")
 
+def open_view_questions(master):
+    view_question_window = tk.Toplevel(master)  
+    view_screen = ViewQuestionScreen(view_question_window)
 
 def save_profile(entries):
     data = [e.get() for e in entries]
