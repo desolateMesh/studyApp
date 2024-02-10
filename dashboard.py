@@ -68,10 +68,13 @@ def generate_quiz(category):
     conn.close()
 
     if questions:
+        # Pass these questions to the QuizScreen
         quiz_window = tk.Toplevel()
         quiz_screen = QuizScreen(quiz_window, questions, category)
     else:
         messagebox.showinfo("Generate Quiz", "No questions found for the selected category.")
+
+
 
 
 if __name__ == "__main__":
