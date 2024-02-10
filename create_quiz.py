@@ -57,13 +57,9 @@ class CreateQuiz:
 
         conn = sqlite3.connect('quiz_application.db')
         c = conn.cursor()
-
-        # First, insert the quiz info into the quizzes table
         c.execute("INSERT INTO quizzes (user_id, category, number_of_questions) VALUES (?, ?, ?)", 
                 (user_id, category, 1))  
         quiz_id = c.lastrowid  
-
-        # Next, insert the question info into the questions table, including the category
         c.execute("""INSERT INTO questions (quiz_id, category, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d)
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)""", 
                 (quiz_id, category, question_text, correct_answer, answer_a, answer_b, answer_c, answer_d))

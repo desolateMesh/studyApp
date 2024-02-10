@@ -48,16 +48,15 @@ class QuizScreen:
 
         self.submit_button = tk.Button(self.navigation_frame, text="Submit", command=self.submit_quiz)
         self.submit_button.grid(row=0, column=2, padx=10)
-
-        # Update the UI with the first question
+        
         self.update_question_and_answers()
 
     def update_question_and_answers(self):
         if self.questions and 0 <= self.current_question_index < len(self.questions):
             current_question = self.questions[self.current_question_index]
             
-            self.question_text.config(text=current_question[1])  # Update question text
-            self.var_a.set(f"A. {current_question[3]}")  # Update answer choices
+            self.question_text.config(text=current_question[1])  
+            self.var_a.set(f"A. {current_question[3]}")  
             self.var_b.set(f"B. {current_question[4]}")
             self.var_c.set(f"C. {current_question[5]}")
             self.var_d.set(f"D. {current_question[6]}")
@@ -79,5 +78,4 @@ class QuizScreen:
             self.update_question_and_answers()
 
     def submit_quiz(self):
-        # Placeholder for submission logic
         messagebox.showinfo("Quiz Completed", "You have completed the quiz.")

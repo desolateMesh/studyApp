@@ -30,4 +30,3 @@ class ViewQuestionScreen:
         for row in c.fetchall():
             self.tree.insert('', tk.END, values=row)
         conn.close()
-
